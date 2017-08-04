@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ipfs-powershell-provider", "ipfs-powershell-provider\ipfs-powershell-provider.csproj", "{15E78A8B-AF75-46D0-90C9-A6EE4DFAB8E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "example-provider", "example-provider\example-provider.csproj", "{B401446E-EB2F-47FF-BB7C-41DD761EF362}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IpfsTests", "IpfsTests\IpfsTests.csproj", "{BBB03428-8010-41C6-BFFC-72DE96AF5063}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{15E78A8B-AF75-46D0-90C9-A6EE4DFAB8E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15E78A8B-AF75-46D0-90C9-A6EE4DFAB8E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15E78A8B-AF75-46D0-90C9-A6EE4DFAB8E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B401446E-EB2F-47FF-BB7C-41DD761EF362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B401446E-EB2F-47FF-BB7C-41DD761EF362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B401446E-EB2F-47FF-BB7C-41DD761EF362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B401446E-EB2F-47FF-BB7C-41DD761EF362}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBB03428-8010-41C6-BFFC-72DE96AF5063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBB03428-8010-41C6-BFFC-72DE96AF5063}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBB03428-8010-41C6-BFFC-72DE96AF5063}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBB03428-8010-41C6-BFFC-72DE96AF5063}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

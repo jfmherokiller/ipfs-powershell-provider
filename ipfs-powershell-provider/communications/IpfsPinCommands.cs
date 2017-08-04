@@ -35,8 +35,7 @@ namespace ipfs_powershell_provider.communications
             }
             argumentlist = argumentlist.Replace(";", "&").TrimEnd('&');
             var response =IpfsRestClient.RunIpfsCommand("pin/ls", argumentlist);
-            var parsedData = JsonConvert.DeserializeObject<PinObjectresponse>(response);
-            return parsedData;
+            return JsonConvert.DeserializeObject<PinObjectresponse>(response);
         }
     }
 }

@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="communications\BoolConverter.cs" />
     <Compile Include="communications\IpfsFilesCommands.cs" />
     <Compile Include="communications\IpfsPinCommands.cs" />
     <Compile Include="communications\IpfsRestClient.cs" />

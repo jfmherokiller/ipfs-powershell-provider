@@ -6,10 +6,10 @@ Describe "IpfsDriveInit" {
 		$ipfstestdrive = new-psdrive -PsProvider IpfsDrive -Name IpfsDrive -Root ""
 		It "BaseInitaliztion" {
 			$ipfstestdrive | Should Not Be $null
-			$ipfstestdrive | Get-Member | Out-Host
+			$ipfstestdrive | Get-Member
 		}
 		It "PinnedObjectsCheck" {
 			$ipfstestdrive.PinnedObjects | Should Not Be $null
-			$ipfstestdrive.PinnedObjects | Get-Member | Out-Host
+			$ipfstestdrive.PinnedObjects | Get-Member
 		}
 }

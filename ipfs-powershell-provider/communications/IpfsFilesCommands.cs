@@ -35,8 +35,7 @@ namespace ipfs_powershell_provider.communications
             }
             argumentlist = argumentlist.Replace(";", "&").TrimEnd('&');
             var response = IpfsRestClient.RunIpfsCommand("files/ls", argumentlist);
-            var parsed_response = JsonConvert.DeserializeObject<filesLsObjectresponse>(response);
-            return parsed_response;
+            return JsonConvert.DeserializeObject<filesLsObjectresponse>(response);
         }
     }
 }

@@ -8,17 +8,17 @@ namespace ipfs_powershell_provider.communications
         public class Entry
         {
             [JsonProperty("Name")]
-            public string Name { get;}
+            public string Name { get; set; }
             [JsonProperty("Type")]
             [JsonConverter(typeof(BoolConverter))]
-            public bool IsNotDirectory { get; }
+            public bool IsNotDirectory { get; set; }
             [JsonProperty("Size")]
-            public int Size { get; }
+            public int Size { get; set; }
             [JsonProperty("Hash")]
-            public string Hash { get; }
+            public string Hash { get; set; }
         }
         [JsonProperty("Entries")]
-        public List<Entry> Entries { get; }
+        public List<Entry> Entries { get; set; }
     }
     public static class IpfsFilesCommands
     {
@@ -35,7 +35,8 @@ namespace ipfs_powershell_provider.communications
             }
             argumentlist = argumentlist.Replace(";", "&").TrimEnd('&');
             var response = IpfsRestClient.RunIpfsCommand("files/ls", argumentlist);
-            return JsonConvert.DeserializeObject<filesLsObjectresponse>(response);
+            var parsed_response = JsonConvert.DeserializeObject<filesLsObjectresponse>(response);
+            return parsed_response;
         }
     }
 }

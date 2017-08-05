@@ -4,11 +4,13 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace ipfs_powershell_provider
 {
-    internal class IpfsDrive: PSDriveInfo
+    internal class IpfsDriveInfo: PSDriveInfo
     {
         public PinnedObjectsProvider PinnedObjects;
-        public IpfsDrive(PSDriveInfo driveInfo) : base(driveInfo)
+        public MfsDataProvider MfsData;
+        public IpfsDriveInfo(PSDriveInfo driveInfo) : base(driveInfo)
         {
+            MfsData = new MfsDataProvider();
             PinnedObjects = new PinnedObjectsProvider();
         }
     }
@@ -21,8 +23,11 @@ namespace ipfs_powershell_provider
         }
     }
 
-    public class mfsData
+     class MfsDataProvider : ContainerCmdletProvider
     {
-        
+        protected override bool IsValidPath(string path)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -10,4 +10,8 @@ Describe "IpfsDriveInit" {
 			$ipfstestdrive.PinnedObjects | Should Not Be $null
 			$ipfstestdrive.PinnedObjects | Get-Member | Out-Host
 		}
+		It "MfsDataCheck" {
+			$ipfstestdrive.MfsData | Should Not Be $null
+			$ipfstestdrive.MfsData | Get-Member | Out-Host
+		}
 }

@@ -1,53 +1,103 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Management.Automation;
+using System.Web.Configuration;
 using System.Web.Security;
 
 namespace ASPNETMembership
 {
     public class MembershipDriveInfo : PSDriveInfo
     {
-        public MembershipDriveInfo( PSDriveInfo driveInfo )
+        private static ushort providerIndex = 0;
+        MembershipProvider provider;
+
+        public MembershipDriveInfo( PSDriveInfo driveInfo, DriveParameters parameters )
             : base( driveInfo )
         {
-            // get the configured connection string collection
             var connectionStrings = ConfigurationManager.ConnectionStrings;
 
-            // get the private bReadOnly field of the collection type
             var fi = typeof( ConfigurationElementCollection )
                 .GetField( "bReadOnly", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic );
 
-            // set the bReadOnly field of the connection string collection to false 
             fi.SetValue( connectionStrings, false );
 
-            // add a new connection string
+            var connectionString = String.Format(
+                "data source={0};Integrated Security=SSPI;Initial Catalog={1}",
+                parameters.Server,
+                parameters.Catalog
+                );
+
+            var moniker = Guid.NewGuid().ToString("N");
+            var connectionStringName = moniker;
+            var providerName = "AspNetSqlMembershipProvider";
+
             connectionStrings.Add(
                 new ConnectionStringSettings(
-                    "ProviderConnectionString",
-                    "data source=localhost;Integrated Security=SSPI;Initial Catalog=M"
+                    connectionStringName,
+                    connectionString
                 )
             );
 
-            // configure the membership provider programmatically
-            MembershipProvider = new SqlMembershipProvider();
+            provider = new SqlMembershipProvider();
             var nvc = new System.Collections.Specialized.NameValueCollection
             {
-                { "connectionStringName", "ProviderConnectionString" },
-                { "enablePasswordRetrieval", "false" },
-                { "enablePasswordReset", "true" },
-                { "requiresQuestionAndAnswer", "false" },
-                { "requiresUniqueEmail", "false" },
-                { "passwordFormat", "Hashed" },
-                { "maxInvalidPasswordAttempts", "5" },
-                { "minRequiredPasswordLength", "6" },
-                { "minRequiredNonalphanumericCharacters", "0" },
-                { "passwordAttemptWindow", "10" },
-                { "passwordStrengthRegularExpression", "" },
-                { "applicationName", "/" },
+                { "connectionStringName", connectionStringName },
+                { "enablePasswordRetrieval", parameters.EnablePasswordRetrieval.ToString() },
+                { "enablePasswordReset", parameters.EnablePasswordReset.ToString() },
+                { "requiresQuestionAndAnswer", parameters.RequiresQuestionAndAnswer.ToString() },
+                { "requiresUniqueEmail", parameters.RequiresUniqueEmail.ToString() },
+                { "passwordFormat", parameters.PasswordFormat.ToString() },
+                { "maxInvalidPasswordAttempts", parameters.MaxInvalidPasswordAttempts.ToString() },
+                { "minRequiredPasswordLength", parameters.MinRequiredPasswordLength.ToString() },
+                { "minRequiredNonalphanumericCharacters", parameters.MinRequiredNonalphanumericCharacters.ToString() },
+                { "passwordAttemptWindow", parameters.PasswordAttemptWindow.ToString() },
+                { "passwordStrengthRegularExpression", parameters.PasswordStrengthRegularExpression },
+                { "applicationName", parameters.ApplicationName },                
             };
+            
+            provider.Initialize( providerName, nvc );
 
-            MembershipProvider.Initialize( "AspNetSqlMembershipProvider", nvc );
+            // set up private members of the Membership type
+            //  this allows us to work with MembershipUser objects directly (e.g., calling MembershipUser.ResetPassword
+
+            fi = typeof( Membership )
+                .GetField( "s_Provider", System.Reflection.BindingFlags.Static| System.Reflection.BindingFlags.NonPublic );
+
+            fi.SetValue( null, provider );
+
+            MembershipProviderCollection coll = new MembershipProviderCollection
+                                                {
+                                                    provider
+                                                };
+
+            fi = typeof( Membership )
+                .GetField( "s_Providers", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic );
+
+            fi.SetValue( null, coll );
+
+            fi = typeof( Membership )
+                .GetField( "s_Initialized", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic );
+
+            fi.SetValue( null, true );
+
+            fi = typeof( Membership )
+                .GetField( "s_HashAlgorithmType", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic );
+
+            fi.SetValue( null, "SHA1" );
+
+            fi = typeof( Membership )
+                .GetField( "s_HashAlgorithmFromConfig", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic );
+
+            fi.SetValue( null, false );
+
         }
         
-        public MembershipProvider MembershipProvider { get; }
+        public MembershipProvider MembershipProvider
+        {
+            get
+            {
+                return this.provider;
+            }
+        }
     }
 }

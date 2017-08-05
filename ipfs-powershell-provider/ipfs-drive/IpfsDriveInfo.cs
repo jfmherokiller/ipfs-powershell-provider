@@ -14,7 +14,7 @@ namespace ipfs_powershell_provider
             PinnedObjects = new PinnedObjectsProvider();
         }
     }
-
+    [CmdletProvider("PinnedObjects", ProviderCapabilities.None)]
     class PinnedObjectsProvider : ContainerCmdletProvider
     {
         protected override void GetItem(string path)
@@ -31,11 +31,11 @@ namespace ipfs_powershell_provider
         }
         protected override bool IsValidPath(string path)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
     }
-
-     class MfsDataProvider : ContainerCmdletProvider
+    [CmdletProvider("MfsDrive", ProviderCapabilities.None)]
+    class MfsDataProvider : ContainerCmdletProvider
     {
         protected override void GetItem(string path)
         {
@@ -54,7 +54,7 @@ namespace ipfs_powershell_provider
         }
         protected override bool IsValidPath(string path)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
     }
 }

@@ -54,7 +54,6 @@
     <Compile Include="communications\IpfsFilesCommands.cs" />
     <Compile Include="communications\IpfsPinCommands.cs" />
     <Compile Include="communications\IpfsRestClient.cs" />
-    <Compile Include="ipfs-drive\DynamicParams.cs" />
     <Compile Include="ipfs-drive\IpfsDrive.cs" />
     <Compile Include="ipfs-drive\IpfsDriveInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

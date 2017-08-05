@@ -1,4 +1,5 @@
-﻿using System.Management.Automation;
+﻿using System.Collections.ObjectModel;
+using System.Management.Automation;
 using System.Management.Automation.Provider;
 
 namespace ipfs_powershell_provider
@@ -6,6 +7,18 @@ namespace ipfs_powershell_provider
     [CmdletProvider("PinnedObjects", ProviderCapabilities.None)]
     public class PinnedObjectsProvider : ContainerCmdletProvider
     {
+        protected override Collection<PSDriveInfo> InitializeDefaultDrives()
+        {
+            var driveInfo = new PSDriveInfo(
+                "PinnedObjects",
+                ProviderInfo,
+                "",
+                "PinnedObjects",
+                null
+            );
+            return new Collection<PSDriveInfo> {driveInfo};
+        }
+
         protected override void GetItem(string path)
         {
             var pinnedObject = communications.IpfsPinCommands.IpfsPinLS(path);
@@ -26,6 +39,17 @@ namespace ipfs_powershell_provider
     [CmdletProvider("MfsDrive", ProviderCapabilities.None)]
     public class MfsDataProvider : ContainerCmdletProvider
     {
+        protected override Collection<PSDriveInfo> InitializeDefaultDrives()
+        {
+            var driveInfo = new PSDriveInfo(
+                "MfsDrive",
+                ProviderInfo,
+                "",
+                "MfsDrive",
+                null
+                );
+            return new Collection<PSDriveInfo> {driveInfo};
+        }
         protected override void GetItem(string path)
         {
             var mfsObject = communications.IpfsFilesCommands.ipfsFilesLs(path);

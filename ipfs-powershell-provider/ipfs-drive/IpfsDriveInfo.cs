@@ -17,6 +17,18 @@ namespace ipfs_powershell_provider
 
     class PinnedObjectsProvider : ContainerCmdletProvider
     {
+        protected override void GetItem(string path)
+        {
+            var pinnedObject = communications.IpfsPinCommands.IpfsPinLS(path);
+            if (null != pinnedObject)
+            {
+                WriteItemObject(pinnedObject, path, false);
+            }
+        }
+        protected override bool ItemExists(string path)
+        {
+            return communications.IpfsPinCommands.IpfsPinLS(path).Keys.Count != 0;
+        }
         protected override bool IsValidPath(string path)
         {
             throw new System.NotImplementedException();
@@ -25,6 +37,21 @@ namespace ipfs_powershell_provider
 
      class MfsDataProvider : ContainerCmdletProvider
     {
+        protected override void GetItem(string path)
+        {
+            var mfsObject = communications.IpfsFilesCommands.ipfsFilesLs(path);
+            if (null != mfsObject)
+            {
+                if (mfsObject.Entries.Count > 1)
+                {
+                    WriteItemObject(mfsObject, path, true);
+                }
+            }
+        }
+        protected override bool ItemExists(string path)
+        {
+            return communications.IpfsFilesCommands.ipfsFilesLs(path).Entries.Count != 0;
+        }
         protected override bool IsValidPath(string path)
         {
             throw new System.NotImplementedException();

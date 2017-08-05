@@ -1,17 +1,14 @@
 ﻿$project = (Split-Path -Parent $MyInvocation.MyCommand.Path)
 Import-Module "$project\..\bin\ipfs-powershell-provider.dll"
-Describe "IpfsDriveInit" {
-		$ipfstestdrive = new-psdrive -PsProvider IpfsDrive -Name IpfsDrive -Root ""
-		It "BaseInitaliztion" {
-			$ipfstestdrive | Should Not Be $null
-			$ipfstestdrive | Get-Member | Out-Host
-		}
+Describe "IpfsDrivesInit" {
 		It "PinnedObjectsCheck" {
-			$ipfstestdrive.PinnedObjects | Should Not Be $null
-			$ipfstestdrive.PinnedObjects | Get-Member | Out-Host
+			$PinnedObjectstestdrive = new-psdrive -PsProvider PinnedObjects -Name PinnedObjects -Root ""
+			$PinnedObjectstestdrive | Should Not Be $null
+			$PinnedObjectstestdrive | Get-Member | Out-Host
 		}
 		It "MfsDataCheck" {
-			$ipfstestdrive.MfsData | Should Not Be $null
-			$ipfstestdrive.MfsData | Get-Member | Out-Host
+			$MfsTestDrive = new-psdrive -PsProvider MfsDrive -Name MfsDrive -Root ""
+			$MfsTestDrive | Should Not Be $null
+			$MfsTestDrive | Get-Member | Out-Host
 		}
 }

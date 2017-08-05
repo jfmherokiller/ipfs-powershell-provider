@@ -1,6 +1,6 @@
-﻿Describe "IpfsDriveInit" {
-		$project = (Split-Path -Parent $MyInvocation.MyCommand.Path)
-		Import-Module "$project\..\bin\ipfs-powershell-provider.dll"
+﻿$project = (Split-Path -Parent $MyInvocation.MyCommand.Path)
+Import-Module "$project\..\bin\ipfs-powershell-provider.dll"
+Describe "IpfsDriveInit" {
 		$ipfstestdrive = new-psdrive -PsProvider IpfsDrive -Name IpfsDrive -Root ""
 		It "BaseInitaliztion" {
 			$ipfstestdrive | Should Not Be $null

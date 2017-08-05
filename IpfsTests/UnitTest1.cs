@@ -27,7 +27,6 @@ namespace IpfsTests
         public void TestIPFSFilesLsCommand()
         {
             var lsresponse = ipfs_powershell_provider.communications.IpfsFilesCommands.ipfsFilesLs();
-            Console.WriteLine(lsresponse.Entries[0].IsNotDirectory);
             Console.WriteLine(JsonConvert.SerializeObject(lsresponse));
         }
     }

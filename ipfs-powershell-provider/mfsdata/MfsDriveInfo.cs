@@ -6,7 +6,7 @@ namespace ipfs_powershell_provider.mfsdata
     {
         public MfsDriveInfo(PSDriveInfo driveInfo) : base(driveInfo)
         {
-
+            
         }
     }
 }

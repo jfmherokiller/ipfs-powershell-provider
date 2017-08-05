@@ -54,14 +54,13 @@
     <Compile Include="communications\IpfsFilesCommands.cs" />
     <Compile Include="communications\IpfsPinCommands.cs" />
     <Compile Include="communications\IpfsRestClient.cs" />
-    <Compile Include="mfsdata\MfsDrive.cs" />
-    <Compile Include="mfsdata\MfsDriveInfo.cs" />
-    <Compile Include="pinObjects\IpfsPinDrive.cs" />
-    <Compile Include="pinObjects\PinDriveInfo.cs" />
+    <Compile Include="ipfs-drive\IpfsDrive.cs" />
+    <Compile Include="ipfs-drive\IpfsDriveInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
